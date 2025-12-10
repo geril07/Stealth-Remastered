@@ -233,12 +233,12 @@ float fWeaponDamage[55] =
 	1.0, // 13 - Vibrator 2
 	1.0, // 14 - Flowers
 	1.0, // 15 - Cane
-	82.5, // 16 - Grenade
+	82.5f, // 16 - Grenade
 	0.0, // 17 - Teargas
 	1.0, // 18 - Molotov
-	9.9, // 19 - Vehicle M4 (custom)
-	46.2, // 20 - Vehicle minigun (custom)
-	0.0, // 21
+	9.9f, // 19 - Vehicle M4 (custom)
+	46.2f, // 20 - Vehicle minigun (custom)
+	0.0f, // 21
 	8.25f, // 22 - Colt 45
 	13.200001f, // 23 - Silenced
 	46.200001f, // 24 - Deagle
@@ -252,26 +252,26 @@ float fWeaponDamage[55] =
 	6.6f, // 32 - Tec9
 	24.750002f, // 33 - Cuntgun
 	41.25f, // 34 - Sniper
-	82.5, // 35 - Rocket launcher
-	82.5, // 36 - Heatseeker
-	1.0, // 37 - Flamethrower
+	82.5f, // 35 - Rocket launcher
+	82.5f, // 36 - Heatseeker
+	1.0f, // 37 - Flamethrower
 	46.200001f, // 38 - Minigun
-	82.5, // 39 - Satchel
-	0.0, // 40 - Detonator
-	0.33, // 41 - Spraycan
-	0.33, // 42 - Fire extinguisher
-	0.0, // 43 - Camera
-	0.0, // 44 - Night vision
-	0.0, // 45 - Infrared
-	0.0, // 46 - Parachute
-	0.0, // 47 - Fake pistol
-	2.64, // 48 - Pistol whip (custom)
-	9.9, // 49 - Vehicle
-	330.0, // 50 - Helicopter blades
-	82.5, // 51 - Explosion
-	1.0, // 52 - Car park (custom)
-	1.0, // 53 - Drowning
-	165.0 // 54 - Splat
+	82.5f, // 39 - Satchel
+	0.0f, // 40 - Detonator
+	0.33f, // 41 - Spraycan
+	0.33f, // 42 - Fire extinguisher
+	0.0f, // 43 - Camera
+	0.0f, // 44 - Night vision
+	0.0f, // 45 - Infrared
+	0.0f, // 46 - Parachute
+	0.0f, // 47 - Fake pistol
+	2.64f, // 48 - Pistol whip (custom)
+	9.9f, // 49 - Vehicle
+	330.0f, // 50 - Helicopter blades
+	82.5f, // 51 - Explosion
+	1.0f, // 52 - Car park (custom)
+	1.0f, // 53 - Drowning
+	165.0f // 54 - Splat
 };
 
 float fWeaponRange[39] =
@@ -297,22 +297,22 @@ float fWeaponRange[39] =
 	0.0, // 18 - Molotov
 	90.0, // 19 - Vehicle M4 (custom)
 	75.0, // 20 - Vehicle minigun (custom)
-	0.0, // 21
-	35.0, // 22 - Colt 45
-	35.0, // 23 - Silenced
-	35.0, // 24 - Deagle
-	40.0, // 25 - Shotgun
-	35.0, // 26 - Sawed-off
-	40.0, // 27 - Spas
-	35.0, // 28 - UZI
-	45.0, // 29 - MP5
-	70.0, // 30 - AK47
-	90.0, // 31 - M4
-	35.0, // 32 - Tec9
-	100.0, // 33 - Cuntgun
-	320.0, // 34 - Sniper
-	0.0, // 35 - Rocket launcher
-	0.0, // 36 - Heatseeker
-	0.0, // 37 - Flamethrower
-	75.0  // 38 - Minigun
+	0.0f, // 21
+	35.0f, // 22 - Colt 45
+	35.0f, // 23 - Silenced
+	35.0f, // 24 - Deagle
+	40.0f, // 25 - Shotgun
+	35.0f, // 26 - Sawed-off
+	40.0f, // 27 - Spas
+	35.0f, // 28 - UZI
+	45.0f, // 29 - MP5
+	70.0f, // 30 - AK47
+	90.0f, // 31 - M4
+	35.0f, // 32 - Tec9
+	100.0f, // 33 - Cuntgun
+	320.0f, // 34 - Sniper
+	0.0f, // 35 - Rocket launcher
+	0.0f, // 36 - Heatseeker
+	0.0f, // 37 - Flamethrower
+	75.0f  // 38 - Minigun
 };

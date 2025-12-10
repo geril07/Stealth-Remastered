@@ -9,7 +9,7 @@ void CMenu::Update()
 	{
 		if (bOpen)
 		{
-			fFadeAlpha = min(fFadeAlpha + ImGui::GetIO().DeltaTime * 6.0f, 1.0f);
+			fFadeAlpha = std::min(fFadeAlpha + ImGui::GetIO().DeltaTime * 6.0f, 1.0f);
 			ImGui::GetStyle().Alpha = fFadeAlpha;
 			pSAMP->toggleSAMPCursor(1);
 			ImGui::GetIO().MouseDrawCursor = true;
@@ -222,8 +222,7 @@ void CMenu::RenderMap()
 			}
 			ImVec2 vecMapMin(vecWindow.x + vecWindow.y + ImGui::GetIO().DisplaySize.y / 12.f * iMapX, vecWindow.y + ImGui::GetIO().DisplaySize.y / 12.f * iMapY);
 			ImVec2 vecMapMax(vecWindow.x + vecWindow.y + ImGui::GetIO().DisplaySize.y / 12.f * (iMapX + 1), vecWindow.y + ImGui::GetIO().DisplaySize.y / 12.f * (iMapY + 1));
-			if (pTextures->tMap[i]->raster)
-				ImGui::GetBackgroundDrawList()->AddImage(pTextures->tMap[i]->raster->RwD3D9Raster.texture, vecMapMin, vecMapMax, { 0, 0 }, { 1, 1 }, ImColor(255, 255, 255, 150));
+			// TODO: Rendering disabled until a safe way to fetch the underlying D3D9 texture from RwRaster is provided in the current plugin-sdk.
 			iMapX++;
 		}
 
@@ -261,7 +260,7 @@ void CMenu::RenderMap()
 
 				CVector vecBlipScreen;
 				Utils::CalcMapToScreen(vecWindow, &pBlip.m_vPosition, &vecBlipScreen, ImGui::GetIO().DisplaySize.y);
-				ImGui::GetBackgroundDrawList()->AddImage(((CSprite2d*)(4 * pBlip.m_nBlipSprite + 0xBAA250))->m_pTexture->raster->RwD3D9Raster.texture, { vecBlipScreen.fX - 10, vecBlipScreen.fY - 10 }, { vecBlipScreen.fX + 10, vecBlipScreen.fY + 10 });
+				// Rendering disabled pending RwRaster -> IDirect3DTexture9 accessor.
 				break;
 			}
 			}
@@ -269,7 +268,7 @@ void CMenu::RenderMap()
 
 		CVector vecCentreScreen;
 		Utils::CalcMapToScreen(vecWindow, &FindPlayerPed()->GetPosition(), &vecCentreScreen, ImGui::GetIO().DisplaySize.y);
-		pRender->DrawImageRotated(((CSprite2d*)(4 * RADAR_SPRITE_CENTRE + 0xBAA250))->m_pTexture->raster->RwD3D9Raster.texture, { vecCentreScreen.fX,vecCentreScreen.fY }, { 10, 10 }, -FindPlayerPed()->m_fCurrentRotation);
+		// Rendering disabled pending RwRaster -> IDirect3DTexture9 accessor.
 	}
 }
 

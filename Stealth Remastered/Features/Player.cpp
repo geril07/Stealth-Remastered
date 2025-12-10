@@ -44,8 +44,8 @@ void Player::AirBreak()
 			pVehicle->m_vecMoveSpeed.fX = pVehicle->m_vecMoveSpeed.fY = pVehicle->m_vecMoveSpeed.fZ = 0.f;
 		}
 		else if (g_Config.g_Player.bAirBreak)
-			pPedSelf->m_nPedFlags.bIsStanding = pPedSelf->m_nPedFlags.bWasStanding = pPedSelf->m_nPedFlags.bStayInSamePlace = true;
-		else pPedSelf->m_nPedFlags.bIsStanding = true;
+			pPedSelf->bIsStanding = pPedSelf->bWasStanding = pPedSelf->bStayInSamePlace = true;
+		else pPedSelf->bIsStanding = true;
 
 		if (isKeyDown('W'))
 			nVec->fX += sinf(fCameraRotation) * fSpeed, nVec->fY += cosf(fCameraRotation) * fSpeed;
@@ -93,8 +93,8 @@ void Player::AirBreak()
 void Player::AntiStun()
 {
 	if (g_Config.g_Player.bAntiStun && rand() % 100 < g_Config.g_Player.iAntiStunChance)
-		pPedSelf->m_nPedFlags.bUpperBodyDamageAnimsOnly = true;
-	else pPedSelf->m_nPedFlags.bUpperBodyDamageAnimsOnly = false;
+		pPedSelf->bUpperBodyDamageAnimsOnly = true;
+	else pPedSelf->bUpperBodyDamageAnimsOnly = false;
 }
 
 void Player::FastRotation()

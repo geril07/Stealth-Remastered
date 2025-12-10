@@ -3,8 +3,12 @@
 #ifndef M_PI
 #define M_PI	3.14159265358979323844f
 #endif
+#ifndef DEGTORAD
 #define DEGTORAD( Deg ) ( (Deg * M_PI) / 180.0f )
+#endif
+#ifndef RADTODEG
 #define RADTODEG( Deg ) ( (Deg * 180.f) / M_PI )
+#endif
 #define FLOAT_EPSILON 0.0001f
 
 namespace Math
@@ -50,12 +54,12 @@ namespace Math
 
 	static float vect2_dist(float* point1, float* point2)
 	{
-		return sqrt(pow(point1[0] - point2[0], 2) + pow(point1[1] - point2[1], 2));
+		return sqrtf(powf(point1[0] - point2[0], 2.0f) + powf(point1[1] - point2[1], 2.0f));
 	}
 
 	static float vect2_dist(CVector* point1, CVector* point2)
 	{
-		return sqrt(pow(point1->fX - point2->fX, 2) + pow(point1->fY - point2->fY, 2));
+		return sqrtf(powf(point1->x - point2->x, 2.0f) + powf(point1->y - point2->y, 2.0f));
 	}
 
 	static void vect3_normalize(const float in[3], float out[3])

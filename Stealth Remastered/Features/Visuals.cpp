@@ -161,7 +161,7 @@ void CVisuals::ESP_NameTags(int iPlayerID, CPed* pPed)
 
 		pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		pWeaponFont->DrawText(pSprite, "G", -1, &rect, DT_NOCLIP | DT_LEFT, 0xFF000000);
-		pWeaponFont->DrawText(pSprite, pSAMP->getWeaponSpriteID(pPed->m_aWeapons[pPed->m_nActiveWeaponSlot].m_nType), -1, &rect, DT_NOCLIP | DT_LEFT, 0xFFFFFFFF);
+		pWeaponFont->DrawText(pSprite, pSAMP->getWeaponSpriteID(pPed->m_aWeapons[pPed->m_nActiveWeaponSlot].m_eWeaponType), -1, &rect, DT_NOCLIP | DT_LEFT, 0xFFFFFFFF);
 		pSprite->End();
 	}
 }

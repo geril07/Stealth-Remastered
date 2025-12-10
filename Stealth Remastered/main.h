@@ -74,3 +74,29 @@
 #include "Menu/Menu.h"
 
 extern HMODULE g_hModule;
+
+// Compatibility aliases for newer plugin-sdk field names
+#ifndef fX
+#define fX x
+#endif
+#ifndef fY
+#define fY y
+#endif
+#ifndef fZ
+#define fZ z
+#endif
+#ifndef m_nActiveWeaponSlot
+#define m_nActiveWeaponSlot m_nSelectedWepSlot
+#endif
+#ifndef m_nBlipSprite
+#define m_nBlipSprite m_nRadarSprite
+#endif
+#ifndef m_vPosition
+#define m_vPosition m_vecPos
+#endif
+#ifndef gRadarTextures
+#define gRadarTextures gRadarTxdIds
+#endif
+#ifndef m_bWidescreenOn
+#define m_bWidescreenOn m_bMenuAccessWidescreen
+#endif

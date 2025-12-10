@@ -16,7 +16,7 @@ void Combat::NoReload()
 	if (!g_Config.g_Combat.bNoReload)
 		return;
 
-	int iWeapon = FindPlayerPed()->m_aWeapons[FindPlayerPed()->m_nActiveWeaponSlot].m_nType;
+	int iWeapon = FindPlayerPed()->m_aWeapons[FindPlayerPed()->m_nActiveWeaponSlot].m_eWeaponType;
 	if (iWeapon >= 22 && iWeapon <= 42 && FindPlayerPed()->m_aWeapons[FindPlayerPed()->m_nActiveWeaponSlot].m_nAmmoInClip == 1)
 		FindPlayerPed()->GiveWeapon((eWeaponType)iWeapon, 0, false);
 }
