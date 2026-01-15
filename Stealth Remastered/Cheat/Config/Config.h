@@ -10,7 +10,7 @@ struct stConfig
 		bool bProAim{ false };
 		bool bTriggerbot{ false };
 
-		int iAimbotConfig[35][3];
+		int iAimbotConfig[35][4];
 		bool bAimbotEnabled[35];
 
 		float fSilentAccuracy{ 100.f };

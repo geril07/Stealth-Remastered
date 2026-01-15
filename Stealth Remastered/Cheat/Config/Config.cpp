@@ -12,9 +12,10 @@ CConfig::CConfig(const char* szName)
 
     for (int i = 22; i <= 34; i++)
     {
-        g_Config.g_Aimbot.iAimbotConfig[i][RANGE] = 1;
-        g_Config.g_Aimbot.iAimbotConfig[i][SILENT] = 1;
-        g_Config.g_Aimbot.iAimbotConfig[i][SMOOTH] = 1;
+        g_Config.g_Aimbot.iAimbotConfig[i][SILENT_FOV] = 150;
+        g_Config.g_Aimbot.iAimbotConfig[i][SMOOTH_FOV] = 150;
+        g_Config.g_Aimbot.iAimbotConfig[i][SILENT_HIT] = 100;
+        g_Config.g_Aimbot.iAimbotConfig[i][SMOOTH_FACTOR] = 10;
     }
 
 	if (PWSTR pathToDocuments; SUCCEEDED(SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &pathToDocuments)))
@@ -54,9 +55,10 @@ static void to_json(json& j, const stConfig::stAimbot& o, const stConfig::stAimb
 
     for (int i = 22; i <= 34; i++)
     {
-        WRITE(mapWeapons[i].szName + " Range", iAimbotConfig[i][RANGE]);
-        WRITE(mapWeapons[i].szName + " Silent", iAimbotConfig[i][SILENT]);
-        WRITE(mapWeapons[i].szName + " Smooth", iAimbotConfig[i][SMOOTH]);
+        WRITE(mapWeapons[i].szName + " Silent FOV", iAimbotConfig[i][SILENT_FOV]);
+        WRITE(mapWeapons[i].szName + " Smooth FOV", iAimbotConfig[i][SMOOTH_FOV]);
+        WRITE(mapWeapons[i].szName + " Silent Hit", iAimbotConfig[i][SILENT_HIT]);
+        WRITE(mapWeapons[i].szName + " Smooth Factor", iAimbotConfig[i][SMOOTH_FACTOR]);
         WRITE(mapWeapons[i].szName + " Enabled", bAimbotEnabled[i]);
     }
 
@@ -269,9 +271,10 @@ static void from_json(const json& j, stConfig::stAimbot& r)
 
     for (int i = 22; i <= 34; i++)
     {
-        read(j, (mapWeapons[i].szName + " Range").c_str(), r.iAimbotConfig[i][RANGE]);
-        read(j, (mapWeapons[i].szName + " Silent").c_str(), r.iAimbotConfig[i][SILENT]);
-        read(j, (mapWeapons[i].szName + " Smooth").c_str(), r.iAimbotConfig[i][SMOOTH]);
+        read(j, (mapWeapons[i].szName + " Silent FOV").c_str(), r.iAimbotConfig[i][SILENT_FOV]);
+        read(j, (mapWeapons[i].szName + " Smooth FOV").c_str(), r.iAimbotConfig[i][SMOOTH_FOV]);
+        read(j, (mapWeapons[i].szName + " Silent Hit").c_str(), r.iAimbotConfig[i][SILENT_HIT]);
+        read(j, (mapWeapons[i].szName + " Smooth Factor").c_str(), r.iAimbotConfig[i][SMOOTH_FACTOR]);
         read(j, (mapWeapons[i].szName + " Enabled").c_str(), r.bAimbotEnabled[i]);
     }
 

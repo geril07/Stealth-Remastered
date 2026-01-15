@@ -37,6 +37,8 @@ public:
 	void Update();
 	void Render();
 
+	int GetActiveFOV(int weapon_id);
+
 	CVector vecCrosshair;
 
 private:
