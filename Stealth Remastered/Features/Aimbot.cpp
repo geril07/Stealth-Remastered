@@ -217,22 +217,28 @@ void CAimbot::SmoothAimbot()
 		else if (byteWeapon == 30 || byteWeapon == 31) fFix = 0.028f;
 		else if (byteWeapon == 33) fFix = 0.01897f;
 
-		float fDistX = sqrt(vecVector.fX * vecVector.fX + vecVector.fY * vecVector.fY);
+		// Calculate proper horizontal angle using atan2 for accurate targeting
+		float fAngle = atan2f(-vecVector.fX, vecVector.fY);
+		fVecX = (fAngle + fFix) - TheCamera.m_aCams[0].m_fHorizontalAngle;
 
-		if (vecVector.fX <= 0.0 && vecVector.fY >= 0.0 || vecVector.fX >= 0.0 && vecVector.fY >= 0.0)
-			fVecX = (acosf(vecVector.fX / fDistX) + fFix) - TheCamera.m_aCams[0].m_fHorizontalAngle;
-		if (vecVector.fX >= 0.0 && vecVector.fY <= 0.0 || vecVector.fX <= 0.0 && vecVector.fY <= 0.0)
-			fVecX = (-acosf(vecVector.fX / fDistX) + fFix) - TheCamera.m_aCams[0].m_fHorizontalAngle;
+		// Normalize angle to [-PI, PI] range
+		while (fVecX > M_PI) fVecX -= 2.0f * M_PI;
+		while (fVecX < -M_PI) fVecX += 2.0f * M_PI;
 
-		float fSmoothX = fVecX / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH_FACTOR] * 2);
+		// Apply smooth factor (higher value = smoother/slower aiming)
+		float fSmoothX = fVecX / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH_FACTOR] * 2.0f);
 
 		if (fSmoothX > -1.0 && fSmoothX < 0.5 && fVecX > -2.0 && fVecX < 2.0)
 			TheCamera.m_aCams[0].m_fHorizontalAngle += fSmoothX;
 
 		if (g_Config.g_Aimbot.bSmoothLockY)
 		{
-			float fDistZ = sqrt(vecVector.fX * vecVector.fX + vecVector.fY * vecVector.fY);
-			float fSmoothZ = (atan2f(fDistZ, vecVector.fZ) - fZ - TheCamera.m_aCams[0].m_fVerticalAngle) / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH_FACTOR] * 2);
+			// Calculate horizontal distance for vertical angle calculation
+			float fDistXY = sqrtf(vecVector.fX * vecVector.fX + vecVector.fY * vecVector.fY);
+			float fAngleZ = atan2f(fDistXY, vecVector.fZ) - fZ - TheCamera.m_aCams[0].m_fVerticalAngle;
+			
+			// Apply smooth factor (higher value = smoother/slower aiming)
+			float fSmoothZ = fAngleZ / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH_FACTOR] * 2.0f);
 			TheCamera.m_aCams[0].m_fVerticalAngle += fSmoothZ;
 		}
 	}
