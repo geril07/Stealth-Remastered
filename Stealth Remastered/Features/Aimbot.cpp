@@ -40,13 +40,19 @@ void CAimbot::Render()
 void CAimbot::GetAimingPlayer()
 {
 	iTargetPlayer = -1;
+	iSilentTargetPlayer = -1;
 	float fNearestDistance = 9999.f;
+	float fNearestSilentDistance = 9999.f;
 
 	if (g_Config.g_Aimbot.bAimbot || g_Config.g_Aimbot.bSmooth || g_Config.g_Aimbot.bSilent || g_Config.g_Aimbot.bProAim)
 	{
 		CVector vecCamera, vecOrigin, vecTarget;
 		Utils::getBonePosition(FindPlayerPed(), BONE_RIGHTWRIST, &vecOrigin);
 		TheCamera.Find3rdPersonCamTargetVector(100.f, vecOrigin, &vecCamera, &vecTarget);
+
+		BYTE byteWeapon = pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon;
+		float fAimbotRange = (float)g_Config.g_Aimbot.iAimbotConfig[byteWeapon][RANGE] * 1.5f;
+		float fSilentRange = (float)g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SILENT_RANGE] * 1.5f;
 
 		for (int i = 0; i < SAMP_MAX_PLAYERS; i++)
 		{
@@ -66,7 +72,7 @@ void CAimbot::GetAimingPlayer()
 					continue;
 
 				float fTargetDistance = Math::vect3_dist(&pSAMP->getPlayers()->pRemotePlayer[i]->pPlayerData->pSAMP_Actor->pGTA_Ped->base.matrix[12], &pSAMP->getPlayers()->pLocalPlayer->pSAMP_Actor->pGTA_Ped->base.matrix[12]);
-				if (!g_Config.g_Aimbot.bIgnoreMaxDistance && fTargetDistance > fWeaponRange[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon])
+				if (!g_Config.g_Aimbot.bIgnoreMaxDistance && fTargetDistance > fWeaponRange[byteWeapon])
 					continue;
 			}
 
@@ -78,19 +84,27 @@ void CAimbot::GetAimingPlayer()
 				if (vecBoneScreen.fZ < 1.0f)
 					continue;
 
-				float fCentreDistance = Math::vect2_dist(&vecCrosshair, &vecBoneScreen);
-				if (g_Config.g_Aimbot.bAimbot && fCentreDistance >= (float)g_Config.g_Aimbot.iAimbotConfig[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon][RANGE] * 1.5f)
-					continue;
-
 				if (!g_Config.g_Aimbot.bIgnoreEverything && !g_Config.g_Aimbot.bLockThroughObjects && !CWorld::GetIsLineOfSightClear(vecCamera, vecBone, true, true, false, true, true, true, false))
 					continue;
 
-				if (fCentreDistance <= fNearestDistance)
+				float fCentreDistance = Math::vect2_dist(&vecCrosshair, &vecBoneScreen);
+
+				// Check for regular aimbot target
+				if (g_Config.g_Aimbot.bAimbot && fCentreDistance < fAimbotRange && fCentreDistance < fNearestDistance)
 				{
 					fNearestDistance = fCentreDistance;
-					iTargetPlayer = i; iTargetBone = iBone;
+					iTargetPlayer = i;
+					iTargetBone = iBone;
 					vecTargetBone = vecBoneScreen;
-					break;
+				}
+
+				// Check for silent aimbot target (independent)
+				if (g_Config.g_Aimbot.bSilent && fCentreDistance < fSilentRange && fCentreDistance < fNearestSilentDistance)
+				{
+					fNearestSilentDistance = fCentreDistance;
+					iSilentTargetPlayer = i;
+					iSilentTargetBone = iBone;
+					vecSilentTargetBone = vecBoneScreen;
 				}
 			}
 		}
