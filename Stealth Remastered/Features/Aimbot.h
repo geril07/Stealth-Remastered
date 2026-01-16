@@ -7,11 +7,11 @@ public:
 	{
 		iTargetBone = 1;
 		iTargetPlayer = -1;
-    iSilentTargetBone = 1;
-    iSilentTargetPlayer = -1;
+		iSilentTargetBone = 1;
+		iSilentTargetPlayer = -1;
 		bCrosshair = false;
 		vecTargetBone = { 0.f, 0.f, 0.f };
-    vecSilentTargetBone = { 0.f, 0.f, 0.f };
+		vecSilentTargetBone = { 0.f, 0.f, 0.f };
 		vecCrosshair = { 0.f, 0.f, 0.f };
 
 		oFireInstantHit = (tFireInstantHit)(pSAMP->g_dwSAMP_Addr + 0xB05A0);
@@ -45,7 +45,9 @@ public:
 private:
 	bool bCrosshair;
 	int iTargetPlayer, iTargetBone;
+	int iSilentTargetPlayer, iSilentTargetBone;
 	CVector vecTargetBone;
+	CVector vecSilentTargetBone;
 
 	void GetAimingPlayer();
 	void SmoothAimbot();
