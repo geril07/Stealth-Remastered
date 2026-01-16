@@ -556,7 +556,7 @@ static const char* szVehicleNames[] =
 	"Farm Trailer", "Street Sweeper Trailer"
 };
 
-#define RANGE 0
-#define SILENT 1
-#define SMOOTH 2
-#define PROAIM 3
+#define SILENT_FOV 0
+#define SMOOTH_FOV 1
+#define SILENT_HIT 2
+#define SMOOTH_FACTOR 3

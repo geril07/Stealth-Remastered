@@ -1,4 +1,4 @@
-﻿#include "main.h"
+#include "main.h"
 #include "ImGui/imgui_internal.h"
 
 CMenu* pMenu;
@@ -442,15 +442,14 @@ void CMenu::Render()
 					if (ImGui::BeginPopupContextItem(0, 0))
 					{
 						if (ImGui::BeginMenuBar()) ImGui::Text("%s (%d) Configuration", i.second.szName.c_str(), i.first), ImGui::EndMenuBar();
-						g_Config.g_Aimbot.bAimbot ? ImGui::TextUnformatted("Range") : ImGui::TextDisabled("Range"); ImGui::SameLine(120);
-						ImGui::SliderInt("##Range", &g_Config.g_Aimbot.iAimbotConfig[i.first][RANGE], 1, 200, "%d px");
-						if (ImGui::IsItemActive())
-							g_Config.g_Aimbot.iRangeStyle ? ImGui::GetOverlayDrawList()->AddCircle({ pAimbot->vecCrosshair.fX, pAimbot->vecCrosshair.fY }, g_Config.g_Aimbot.iAimbotConfig[i.first][RANGE] * 1.5f, (ImColor)g_Config.g_Aimbot.colorRange, 64, g_Config.g_Aimbot.fOutlineThickness) :
-							ImGui::GetOverlayDrawList()->AddCircleFilled({ pAimbot->vecCrosshair.fX, pAimbot->vecCrosshair.fY }, g_Config.g_Aimbot.iAimbotConfig[i.first][RANGE] * 1.5f, (ImColor)g_Config.g_Aimbot.colorRange, 64);
+						g_Config.g_Aimbot.bSilent ? ImGui::TextUnformatted("Silent FOV") : ImGui::TextDisabled("Silent FOV"); ImGui::SameLine(120);
+						ImGui::SliderInt("##SilentFOV", &g_Config.g_Aimbot.iAimbotConfig[i.first][SILENT_FOV], 1, 200, "%d px");
+						g_Config.g_Aimbot.bSmooth ? ImGui::TextUnformatted("Smooth FOV") : ImGui::TextDisabled("Smooth FOV"); ImGui::SameLine(120);
+						ImGui::SliderInt("##SmoothFOV", &g_Config.g_Aimbot.iAimbotConfig[i.first][SMOOTH_FOV], 1, 200, "%d px");
 						g_Config.g_Aimbot.bSilent ? ImGui::TextUnformatted("Hitchance") : ImGui::TextDisabled("Hitchance"); ImGui::SameLine(120);
-						ImGui::SliderInt("##Silent", &g_Config.g_Aimbot.iAimbotConfig[i.first][SILENT], 1, 100, "%d%%");
+						ImGui::SliderInt("##SilentHit", &g_Config.g_Aimbot.iAimbotConfig[i.first][SILENT_HIT], 1, 100, "%d%%");
 						g_Config.g_Aimbot.bSmooth ? ImGui::TextUnformatted("Smoothness") : ImGui::TextDisabled("Smoothness"); ImGui::SameLine(120);
-						ImGui::SliderInt("##Smooth", &g_Config.g_Aimbot.iAimbotConfig[i.first][SMOOTH], 1, 100, "%d%%");
+						ImGui::SliderInt("##SmoothFactor", &g_Config.g_Aimbot.iAimbotConfig[i.first][SMOOTH_FACTOR], 1, 100, "%d%%");
 						ImGui::EndPopup();
 					}
 				}
