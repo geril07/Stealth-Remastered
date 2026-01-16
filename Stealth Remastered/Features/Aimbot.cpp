@@ -101,7 +101,7 @@ void CAimbot::GetAimingPlayer()
 
 				float fCentreDistance = Math::vect2_dist(&vecCrosshair, &vecBoneScreen);
 				int fov_limit = GetActiveFOV(pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon);
-				if (g_Config.g_Aimbot.bAimbot && fCentreDistance >= (float)fov_limit * 1.5f)
+				if ((g_Config.g_Aimbot.bAimbot || g_Config.g_Aimbot.bSmooth || g_Config.g_Aimbot.bSilent || g_Config.g_Aimbot.bProAim) && fCentreDistance >= (float)fov_limit * 1.5f)
 					continue;
 
 				if (!g_Config.g_Aimbot.bIgnoreEverything && !g_Config.g_Aimbot.bLockThroughObjects && !CWorld::GetIsLineOfSightClear(vecCamera, vecBone, true, true, false, true, true, true, false))
@@ -123,6 +123,11 @@ bool __stdcall CAimbot::hkFireInstantHit(void* this_, CEntity* pFiringEntity, CV
 {
 	if (pFiringEntity == (CEntity*)FindPlayerPed() && g_Config.g_Aimbot.bSilent && pAimbot->iTargetPlayer != -1 && g_Config.g_Aimbot.bAimbotEnabled[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon] && rand() % 100 <= g_Config.g_Aimbot.iAimbotConfig[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon][SILENT_HIT])
 	{
+		BYTE byteWeapon = pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon;
+		float fCentreDistance = Math::vect2_dist(&pAimbot->vecCrosshair, &pAimbot->vecTargetBone);
+		if (fCentreDistance >= (float)g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SILENT_FOV] * 1.5f)
+			return pAimbot->oFireInstantHit(this_, pFiringEntity, pOrigin, pMuzzle, pTargetEntity, pTarget, pVec, bCrossHairGun, bCreateGunFx);
+
 		CPed* pPed = CPools::GetPed(pSAMP->getPlayers()->pRemotePlayer[pAimbot->iTargetPlayer]->pPlayerData->pSAMP_Actor->ulGTAEntityHandle);
 		if (pPed)
 		{
@@ -152,6 +157,10 @@ bool __cdecl CAimbot::hkAddBullet(CEntity* pCreator, eWeaponType weaponType, CVe
 {
 	if (pCreator == FindPlayerPed() && g_Config.g_Aimbot.bSilent && pAimbot->iTargetPlayer != -1 && g_Config.g_Aimbot.bAimbotEnabled[34] && rand() % 100 <= g_Config.g_Aimbot.iAimbotConfig[34][SILENT_HIT])
 	{
+		float fCentreDistance = Math::vect2_dist(&pAimbot->vecCrosshair, &pAimbot->vecTargetBone);
+		if (fCentreDistance >= (float)g_Config.g_Aimbot.iAimbotConfig[34][SILENT_FOV] * 1.5f)
+			return pAimbot->oAddBullet(pCreator, weaponType, vecPosition, vecVelocity);
+
 		CPed* pPed = CPools::GetPed(pSAMP->getPlayers()->pRemotePlayer[pAimbot->iTargetPlayer]->pPlayerData->pSAMP_Actor->ulGTAEntityHandle);
 		if (pPed)
 		{
@@ -184,6 +193,11 @@ void CAimbot::SmoothAimbot()
 
 		CPed* pPed = CPools::GetPed(pSAMP->getPlayers()->pRemotePlayer[pAimbot->iTargetPlayer]->pPlayerData->pSAMP_Actor->ulGTAEntityHandle);
 		if (!pPed)
+			return;
+
+		BYTE byteWeapon = pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon;
+		float fCentreDistance = Math::vect2_dist(&vecCrosshair, &vecTargetBone);
+		if (fCentreDistance >= (float)g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH_FOV] * 1.5f)
 			return;
 
 		if (g_Config.g_Aimbot.bStopOnBody)
@@ -220,7 +234,6 @@ void CAimbot::SmoothAimbot()
 		}
 		else fX = fZ = M_PI / 2;
 
-		BYTE byteWeapon = pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon;
 		if (byteWeapon >= 22 && byteWeapon <= 29 || byteWeapon == 32) fFix = 0.04253f;
 		else if (byteWeapon == 30 || byteWeapon == 31) fFix = 0.028f;
 		else if (byteWeapon == 33) fFix = 0.01897f;
