@@ -113,7 +113,7 @@ void CAimbot::GetAimingPlayer()
 
 bool __stdcall CAimbot::hkFireInstantHit(void* this_, CEntity* pFiringEntity, CVector* pOrigin, CVector* pMuzzle, CEntity* pTargetEntity, CVector* pTarget, CVector* pVec, bool bCrossHairGun, bool bCreateGunFx)
 {
-	if (pFiringEntity == (CEntity*)FindPlayerPed() && g_Config.g_Aimbot.bSilent && pAimbot->iTargetPlayer != -1 && g_Config.g_Aimbot.bAimbotEnabled[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon] && rand() % 100 <= g_Config.g_Aimbot.iAimbotConfig[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon][SILENT])
+	if (pFiringEntity == (CEntity*)FindPlayerPed() && g_Config.g_Aimbot.bSilent && pAimbot->iTargetPlayer != -1 && g_Config.g_Aimbot.bAimbotEnabled[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon] && rand() % 100 <= g_Config.g_Aimbot.iAimbotConfig[pSAMP->getPlayers()->pLocalPlayer->byteCurrentWeapon][SILENT_HIT])
 	{
 		CPed* pPed = CPools::GetPed(pSAMP->getPlayers()->pRemotePlayer[pAimbot->iTargetPlayer]->pPlayerData->pSAMP_Actor->ulGTAEntityHandle);
 		if (pPed)
@@ -142,7 +142,7 @@ bool __stdcall CAimbot::hkFireInstantHit(void* this_, CEntity* pFiringEntity, CV
 
 bool __cdecl CAimbot::hkAddBullet(CEntity* pCreator, eWeaponType weaponType, CVector vecPosition, CVector vecVelocity)
 {
-	if (pCreator == FindPlayerPed() && g_Config.g_Aimbot.bSilent && pAimbot->iTargetPlayer != -1 && g_Config.g_Aimbot.bAimbotEnabled[34] && rand() % 100 <= g_Config.g_Aimbot.iAimbotConfig[34][SILENT])
+	if (pCreator == FindPlayerPed() && g_Config.g_Aimbot.bSilent && pAimbot->iTargetPlayer != -1 && g_Config.g_Aimbot.bAimbotEnabled[34] && rand() % 100 <= g_Config.g_Aimbot.iAimbotConfig[34][SILENT_HIT])
 	{
 		CPed* pPed = CPools::GetPed(pSAMP->getPlayers()->pRemotePlayer[pAimbot->iTargetPlayer]->pPlayerData->pSAMP_Actor->ulGTAEntityHandle);
 		if (pPed)
@@ -224,7 +224,7 @@ void CAimbot::SmoothAimbot()
 		if (vecVector.fX >= 0.0 && vecVector.fY <= 0.0 || vecVector.fX <= 0.0 && vecVector.fY <= 0.0)
 			fVecX = (-acosf(vecVector.fX / fDistX) + fFix) - TheCamera.m_aCams[0].m_fHorizontalAngle;
 
-		float fSmoothX = fVecX / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH] * 2);
+		float fSmoothX = fVecX / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH_FACTOR] * 2);
 
 		if (fSmoothX > -1.0 && fSmoothX < 0.5 && fVecX > -2.0 && fVecX < 2.0)
 			TheCamera.m_aCams[0].m_fHorizontalAngle += fSmoothX;
@@ -232,7 +232,7 @@ void CAimbot::SmoothAimbot()
 		if (g_Config.g_Aimbot.bSmoothLockY)
 		{
 			float fDistZ = sqrt(vecVector.fX * vecVector.fX + vecVector.fY * vecVector.fY);
-			float fSmoothZ = (atan2f(fDistZ, vecVector.fZ) - fZ - TheCamera.m_aCams[0].m_fVerticalAngle) / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH] * 2);
+			float fSmoothZ = (atan2f(fDistZ, vecVector.fZ) - fZ - TheCamera.m_aCams[0].m_fVerticalAngle) / (g_Config.g_Aimbot.iAimbotConfig[byteWeapon][SMOOTH_FACTOR] * 2);
 			TheCamera.m_aCams[0].m_fVerticalAngle += fSmoothZ;
 		}
 	}
