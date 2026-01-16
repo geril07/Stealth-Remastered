@@ -12,8 +12,8 @@ CConfig::CConfig(const char* szName)
 
     for (int i = 22; i <= 34; i++)
     {
-        g_Config.g_Aimbot.iAimbotConfig[i][SILENT_FOV] = 150;
-        g_Config.g_Aimbot.iAimbotConfig[i][SMOOTH_FOV] = 150;
+        g_Config.g_Aimbot.iAimbotConfig[i][SILENT_RANGE] = 150;
+        g_Config.g_Aimbot.iAimbotConfig[i][RANGE] = 150;
         g_Config.g_Aimbot.iAimbotConfig[i][SILENT_HIT] = 100;
         g_Config.g_Aimbot.iAimbotConfig[i][SMOOTH_FACTOR] = 10;
     }
@@ -55,8 +55,8 @@ static void to_json(json& j, const stConfig::stAimbot& o, const stConfig::stAimb
 
     for (int i = 22; i <= 34; i++)
     {
-        WRITE(mapWeapons[i].szName + " Silent FOV", iAimbotConfig[i][SILENT_FOV]);
-        WRITE(mapWeapons[i].szName + " Smooth FOV", iAimbotConfig[i][SMOOTH_FOV]);
+        WRITE(mapWeapons[i].szName + " Silent Range", iAimbotConfig[i][SILENT_RANGE]);
+        WRITE(mapWeapons[i].szName + " Range", iAimbotConfig[i][RANGE]);
         WRITE(mapWeapons[i].szName + " Silent Hit", iAimbotConfig[i][SILENT_HIT]);
         WRITE(mapWeapons[i].szName + " Smooth Factor", iAimbotConfig[i][SMOOTH_FACTOR]);
         WRITE(mapWeapons[i].szName + " Enabled", bAimbotEnabled[i]);
@@ -271,8 +271,8 @@ static void from_json(const json& j, stConfig::stAimbot& r)
 
     for (int i = 22; i <= 34; i++)
     {
-        read(j, (mapWeapons[i].szName + " Silent FOV").c_str(), r.iAimbotConfig[i][SILENT_FOV]);
-        read(j, (mapWeapons[i].szName + " Smooth FOV").c_str(), r.iAimbotConfig[i][SMOOTH_FOV]);
+        read(j, (mapWeapons[i].szName + " Silent Range").c_str(), r.iAimbotConfig[i][SILENT_RANGE]);
+        read(j, (mapWeapons[i].szName + " Range").c_str(), r.iAimbotConfig[i][RANGE]);
         read(j, (mapWeapons[i].szName + " Silent Hit").c_str(), r.iAimbotConfig[i][SILENT_HIT]);
         read(j, (mapWeapons[i].szName + " Smooth Factor").c_str(), r.iAimbotConfig[i][SMOOTH_FACTOR]);
         read(j, (mapWeapons[i].szName + " Enabled").c_str(), r.bAimbotEnabled[i]);

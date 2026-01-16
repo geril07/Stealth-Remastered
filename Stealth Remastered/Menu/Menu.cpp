@@ -441,11 +441,11 @@ void CMenu::Render()
 					ImGui::Button(("Config##" + std::to_string(i.first)).c_str(), { 70, 0 });
 					if (ImGui::BeginPopupContextItem(0, 0))
 					{
-						if (ImGui::BeginMenuBar()) ImGui::Text("%s (%d) Configuration", i.second.szName.c_str(), i.first), ImGui::EndMenuBar();
-						g_Config.g_Aimbot.bSilent ? ImGui::TextUnformatted("Silent FOV") : ImGui::TextDisabled("Silent FOV"); ImGui::SameLine(120);
-						ImGui::SliderInt("##SilentFOV", &g_Config.g_Aimbot.iAimbotConfig[i.first][SILENT_FOV], 1, 200, "%d px");
-						g_Config.g_Aimbot.bSmooth ? ImGui::TextUnformatted("Smooth FOV") : ImGui::TextDisabled("Smooth FOV"); ImGui::SameLine(120);
-						ImGui::SliderInt("##SmoothFOV", &g_Config.g_Aimbot.iAimbotConfig[i.first][SMOOTH_FOV], 1, 200, "%d px");
+					if (ImGui::BeginMenuBar()) ImGui::Text("%s (%d) Configuration", i.second.szName.c_str(), i.first), ImGui::EndMenuBar();
+					g_Config.g_Aimbot.bSilent ? ImGui::TextUnformatted("Silent Range") : ImGui::TextDisabled("Silent Range"); ImGui::SameLine(120);
+					ImGui::SliderInt("##SilentFOV", &g_Config.g_Aimbot.iAimbotConfig[i.first][SILENT_RANGE], 1, 200, "%d px");
+					g_Config.g_Aimbot.bSmooth ? ImGui::TextUnformatted("Range") : ImGui::TextDisabled("Range"); ImGui::SameLine(120);
+					ImGui::SliderInt("##SmoothFOV", &g_Config.g_Aimbot.iAimbotConfig[i.first][RANGE], 1, 200, "%d px");
 						g_Config.g_Aimbot.bSilent ? ImGui::TextUnformatted("Hitchance") : ImGui::TextDisabled("Hitchance"); ImGui::SameLine(120);
 						ImGui::SliderInt("##SilentHit", &g_Config.g_Aimbot.iAimbotConfig[i.first][SILENT_HIT], 1, 100, "%d%%");
 						g_Config.g_Aimbot.bSmooth ? ImGui::TextUnformatted("Smoothness") : ImGui::TextDisabled("Smoothness"); ImGui::SameLine(120);
