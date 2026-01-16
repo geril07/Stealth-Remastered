@@ -44,7 +44,7 @@
     <OutDir>$(ProjectDir).bin\GTASA\Release\</OutDir>
     <IntDir>$(ProjectDir).obj\GTASA\Release\</IntDir>
     <TargetName>StealthRemastered.SA</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.asi</TargetExt>
     <IncludePath>$(IncludePath);$(DIRECTX9_SDK_DIR)\Include\</IncludePath>
     <LibraryPath>$(LibraryPath);$(DIRECTX9_SDK_DIR)\Lib\x86\</LibraryPath>
   </PropertyGroup>
@@ -52,7 +52,7 @@
     <OutDir>$(ProjectDir).bin\GTASA\Debug\</OutDir>
     <IntDir>$(ProjectDir).obj\GTASA\Debug\</IntDir>
     <TargetName>StealthRemastered.SA_d</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.asi</TargetExt>
     <IncludePath>$(IncludePath);$(DIRECTX9_SDK_DIR)\Include\</IncludePath>
     <LibraryPath>$(LibraryPath);$(DIRECTX9_SDK_DIR)\Lib\x86\</LibraryPath>
   </PropertyGroup>
